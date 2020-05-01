@@ -1,3 +1,4 @@
+
 import socket
 import datetime
 import time
@@ -9,15 +10,13 @@ def validatePortList(portList):
         try:
             if int(port) not in range(65535):
                 print("There was a problem validating the port list, port not in acceptable range...")
-                newPorts = input("Please enter ports separated by spaces:")
-                newPortList = newPorts.split()
-                validatePortList(newPortList)
+                return None
             else:
                 return (portList)
         except:
             print("There was a problem validating the port list, port cannot be converted to int...")
             print("Please enter valid port argument, presets are case sensitive, press enter for default...")
-            getPorts()
+            return None
 
 
 def getPorts():
@@ -42,9 +41,12 @@ def getPorts():
             return presets[key]
     customPorts = validatePortList(inputPorts.split())
     customPortsList = []
-    for port in customPorts:
-        customPortsList.append(int(port))
-    return customPortsList
+    if customPorts is None:
+        pass
+    else:
+        for port in customPorts:
+            customPortsList.append(int(port))
+        return customPortsList
 
 
 def validateIp():
@@ -117,6 +119,11 @@ def writeLog(resultList):
         log.write(str(line)+"\n")
 
 
+
+ports = None
+while ports is None:    
+    ports = getPorts()
+
 ip = getIp()
 print("Target ip set to: " + ip)
-writeLog(portScan(ip, getPorts()))
+writeLog(portScan(ip, ports))
