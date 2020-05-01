@@ -1,19 +1,10 @@
-# Name: Jeremy Golden
-# Course: CYBR-260-45
-# Date: 5 / 1 / 2020
-# Purpose: scan any number of ports on any ip address.
-# Scan is timed, makes note of all open ports and saves their response data.
-# Data about open ports printed to console, and verbose logs stored as Scanner_Log.txt
+
 import socket
 import datetime
 import time
 import sys
 
 
-# function: validatePortList
-# purpose: Make sure all ports in list are in acceptable range [1-65535]
-# inputs: list of ports, in this case from getPorts
-# returns: list of ports in acceptable range [1-65535]
 def validatePortList(portList):
     for port in portList:
         print("Validating port format...")
@@ -29,10 +20,6 @@ def validatePortList(portList):
             return None
 
 
-# function: getPorts
-# purpose: Takes user input for ports and checks for preset values
-# inputs: list of ports, or value for one of presets
-# returns: Validated list of ports (validation happens inside this function via validatePortList)
 def getPorts():
     print("   *****  Port Settings  *****\n"
           "For custom list input any number of ports separated by spaces\n"
@@ -63,10 +50,6 @@ def getPorts():
         return customPortsList
 
 
-# function: validateIp
-# purpose: Takes input for Ip, and validates that is an acceptable ip address
-# inputs: no inputs, but takes user input inside function
-# returns: blank input will return "127.0.0.1", returns acceptably formatted ip
 def validateIp():
     print("   *****  Ip settings  *****")
     print("For custom address enter a standard format ip address")
@@ -97,10 +80,6 @@ def getIp():
     return ip
 
 
-# function: portScan
-# purpose: scans all ports on ip address, times scan, records all results with timestamps
-# inputs: validated ip address and validated list of ports form above functions
-# returns: prints data about scan and open ports to console, returns list of lines of log data describing scan
 def portScan(ip, ports):
     s = socket.socket()
     input("   *****  press Enter to begin scanning  *****")
@@ -142,10 +121,6 @@ def portScan(ip, ports):
     return log
 
 
-# function: writeLog
-# purpose: Creates/opens Scanner_Log.txt and writes all log information line by line
-# inputs: list of lines of log data from portScan
-# returns: returns nothing, but creates/writes log data to txt in directory
 def writeLog(resultList):
     log = open("Scanner_Log.txt", "w+")
     for line in resultList:
